@@ -191,7 +191,7 @@ export function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Overlay — #024674 at 37% — client spec */}
+        {/* Overlay — #024674 — client pidió menos saturación azul */}
         <motion.div
           className="absolute inset-0 z-10"
           style={{ opacity: overlayOpacity }}
@@ -201,7 +201,7 @@ export function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(160deg, rgba(2,70,116,0.92) 0%, rgba(2,70,116,0.62) 45%, rgba(2,70,116,0.37) 100%)",
+                "linear-gradient(160deg, rgba(2,70,116,0.55) 0%, rgba(2,70,116,0.32) 45%, rgba(2,70,116,0.15) 100%)",
             }}
           />
         </motion.div>
@@ -211,7 +211,7 @@ export function Hero() {
           className="absolute inset-0 z-10"
           style={{
             background:
-              "linear-gradient(160deg, rgba(2,70,116,0.92) 0%, rgba(2,70,116,0.62) 45%, rgba(2,70,116,0.37) 100%)",
+              "linear-gradient(160deg, rgba(2,70,116,0.45) 0%, rgba(2,70,116,0.28) 45%, rgba(2,70,116,0.12) 100%)",
           }}
           aria-hidden="true"
         />
