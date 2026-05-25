@@ -1,7 +1,7 @@
 # Acrílica del Perú V2
 
 ## Stack
-- Next.js 15.3.2 App Router + TypeScript
+- Next.js 16.2.6 App Router + TypeScript
 - Tailwind v4 + @tailwindcss/postcss
 - Framer Motion 12.x (page load stagger, scroll reveal, marquee, hover micro)
 - embla-carousel-react 8.x + embla-carousel-autoplay

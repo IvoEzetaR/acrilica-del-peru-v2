@@ -44,3 +44,5 @@ _screenshots/
 _build-hero.log
 _lighthouse.json
 _critique.md
+
+.vercel
