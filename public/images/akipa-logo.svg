@@ -1,0 +1,17 @@
+<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="akipaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513" />
+      <stop offset="100%" style="stop-color:#A0522D" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="80" fill="url(#akipaGradient)"/>
+  
+  <!-- AKIPA Text -->
+  <text x="100" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">AKIPA</text>
+  
+  <!-- Subtitle -->
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="white" opacity="0.9">cocina casera</text>
+</svg>

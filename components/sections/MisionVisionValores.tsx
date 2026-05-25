@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { AnimatedH2 } from "@/components/ui/animated-h2";
 import {
   ShieldCheck,
   Clock,
@@ -43,16 +44,12 @@ export function MisionVisionValores() {
           >
             Quiénes somos
           </motion.span>
-          <motion.h2
-            {...FADE_UP}
-            transition={{ ...FADE_UP.transition, delay: 0.1 }}
+          <AnimatedH2
             id="mision-heading"
             className="font-heading font-extrabold text-white text-3xl md:text-4xl lg:text-5xl leading-tight"
           >
-            Nuestra misión, visión
-            <br />
-            <span className="text-white/70">y valores</span>
-          </motion.h2>
+            Nuestra misión visión y valores
+          </AnimatedH2>
         </div>
 
         {/* Misión + Visión — glass card style (modern-cards: glass) */}

@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { CLIENTES_MARQUEE, STATS } from "@/lib/data/servicios";
+import { AnimatedH2 } from "@/components/ui/animated-h2";
 
 const FADE_UP = {
   initial: { opacity: 0, y: 32 },
@@ -11,8 +13,17 @@ const FADE_UP = {
   transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] },
 };
 
-// Marquee with logo placeholders — real SVG logos replace these
-function LogoPlaceholder({ nombre }: { nombre: string }) {
+// Real SVG logos available for these clients
+const LOGO_FILES: Record<string, string> = {
+  "Toyota": "/images/toyota-logo.svg",
+  "Tambo+": "/images/tambo-logo.svg",
+  "Grupo Centenario": "/images/grupo-centenario-logo.svg",
+  "Akipa": "/images/akipa-logo.svg",
+  "Faber-Castell": "/images/faber-castell-logo.svg",
+};
+
+function LogoPlaceholder({ nombre, logo }: { nombre: string; logo: string }) {
+  const realLogo = LOGO_FILES[nombre];
   return (
     <motion.div
       className="flex items-center justify-center h-12 px-8 mx-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default shrink-0"
@@ -21,9 +32,19 @@ function LogoPlaceholder({ nombre }: { nombre: string }) {
       role="img"
       aria-label={`Logo cliente: ${nombre}`}
     >
-      <span className="font-heading font-bold text-[#024674] text-sm whitespace-nowrap">
-        {nombre}
-      </span>
+      {realLogo ? (
+        <Image
+          src={realLogo}
+          alt={`${nombre} logo`}
+          width={120}
+          height={40}
+          className="object-contain max-h-10 w-auto"
+        />
+      ) : (
+        <span className="font-heading font-bold text-[#024674] text-sm whitespace-nowrap">
+          {nombre}
+        </span>
+      )}
     </motion.div>
   );
 }
@@ -46,14 +67,12 @@ export function Clientes() {
           >
             Marcas que confían en nosotros
           </motion.span>
-          <motion.h2
-            {...FADE_UP}
-            transition={{ ...FADE_UP.transition, delay: 0.1 }}
+          <AnimatedH2
             id="clientes-heading"
             className="font-heading font-extrabold text-[#024674] text-3xl md:text-4xl lg:text-5xl leading-tight mb-4"
           >
             Nuestros clientes
-          </motion.h2>
+          </AnimatedH2>
           <motion.p
             {...FADE_UP}
             transition={{ ...FADE_UP.transition, delay: 0.2 }}
@@ -101,7 +120,7 @@ export function Clientes() {
           style={{ width: "max-content" }}
         >
           {doubled.map((cliente, i) => (
-            <LogoPlaceholder key={`${cliente.nombre}-${i}`} nombre={cliente.nombre} />
+            <LogoPlaceholder key={`${cliente.nombre}-${i}`} nombre={cliente.nombre} logo={cliente.logo} />
           ))}
         </motion.div>
       </div>

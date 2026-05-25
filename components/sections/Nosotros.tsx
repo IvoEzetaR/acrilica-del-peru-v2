@@ -5,19 +5,20 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { AnimatedH2 } from "@/components/ui/animated-h2";
 
 const CAROUSEL_IMAGES = [
   {
-    src: "/images/nosotros-taller-1.jpg",
-    alt: "Taller Acrílica del Perú — área de corte láser CO₂",
+    src: "/images/nosotros-taller.png",
+    alt: "Taller Acrílica del Perú — equipo y área de fabricación en Chorrillos",
   },
   {
-    src: "/images/nosotros-taller-2.jpg",
-    alt: "Equipo de Acrílica del Perú trabajando en proyecto corporativo",
+    src: "/images/portfolio-totem.png",
+    alt: "Tótem publicitario fabricado en el taller de Acrílica del Perú",
   },
   {
-    src: "/images/nosotros-taller-3.jpg",
-    alt: "Proceso de fabricación de exhibidores POP en Acrílica del Perú",
+    src: "/images/portfolio-arco-plaza.png",
+    alt: "Estructura corporativa fabricada por Acrílica del Perú",
   },
 ];
 
@@ -62,18 +63,12 @@ export function Nosotros() {
               Quiénes somos
             </motion.span>
 
-            <motion.h2
-              {...FADE_UP}
-              transition={{ ...FADE_UP.transition, delay: 0.1 }}
+            <AnimatedH2
               id="nosotros-heading"
               className="font-heading font-extrabold text-[#024674] text-3xl md:text-4xl lg:text-5xl leading-tight mb-6"
             >
-              Más de 20 años
-              <br />
-              <span className="text-[#5E6B78]">transformando ideas</span>
-              <br />
-              en realidad visual.
-            </motion.h2>
+              Más de 20 años transformando ideas en realidad visual.
+            </AnimatedH2>
 
             <motion.div
               {...FADE_UP}
@@ -134,11 +129,14 @@ export function Nosotros() {
                     key={i}
                     className="relative flex-none w-full aspect-[4/3]"
                   >
-                    <div className="absolute inset-0 bg-[#024674] placeholder-img flex items-center justify-center">
-                      <span className="text-[#024674]/30 font-heading font-bold text-sm text-center px-4">
-                        {img.alt}
-                      </span>
-                    </div>
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority={i === 0}
+                    />
                   </div>
                 ))}
               </div>

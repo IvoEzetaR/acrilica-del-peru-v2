@@ -1,0 +1,23 @@
+<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tamboGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffff00" />
+      <stop offset="100%" style="stop-color:#f0f000" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="80" fill="url(#tamboGradient)"/>
+  
+  <!-- TAMBO Text -->
+  <text x="100" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#8B008B">TAMBO</text>
+  
+  <!-- Plus symbol -->
+  <circle cx="170" cy="25" r="8" fill="#8B008B"/>
+  <text x="170" y="30" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffff00">+</text>
+  
+  <!-- Subtitle -->
+  <rect x="130" y="55" width="50" height="15" fill="#8B008B" rx="7"/>
+  <text x="155" y="65" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#ffff00" font-weight="bold">practi</text>
+  <text x="155" y="72" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="#ffff00" font-weight="bold">tienda</text>
+</svg>

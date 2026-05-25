@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { AnimatedH2 } from "@/components/ui/animated-h2";
 
 type Categoria = "todos" | "acrilicos" | "totems" | "luminosos" | "impresion";
 
@@ -12,48 +14,72 @@ const PORTFOLIO_ITEMS = [
     titulo: "Tótem MAGIA",
     cliente: "MAGIA",
     categoria: "totems" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/magia-totem.jpg",
+    imagen: "/images/portfolio-totem.png",
     alt: "Tótem publicitario para MAGIA — fabricado por Acrílica del Perú",
   },
   {
     id: 2,
-    titulo: "Exhibidor Papa John's",
-    cliente: "Papa John's",
-    categoria: "totems" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/papajohns-exhibidor.jpg",
-    alt: "Exhibidor POP para Papa John's — diseño y fabricación Acrílica del Perú",
+    titulo: "Letrero MAGIA",
+    cliente: "MAGIA",
+    categoria: "luminosos" as Categoria,
+    imagen: "/images/portfolio-rebranding-magia.png",
+    alt: "Letrero corporativo MAGIA — fabricado por Acrílica del Perú",
   },
   {
     id: 3,
-    titulo: "Señalética MAPFRE",
-    cliente: "MAPFRE",
-    categoria: "acrilicos" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/mapfre-señaletica.jpg",
-    alt: "Señalética corporativa en acrílico para MAPFRE",
+    titulo: "Counter Papa John's",
+    cliente: "Papa John's",
+    categoria: "totems" as Categoria,
+    imagen: "/images/portfolio-counter-papajohns.png",
+    alt: "Counter y exhibidor POP para Papa John's",
   },
   {
     id: 4,
-    titulo: "Display Toyota",
-    cliente: "Toyota",
-    categoria: "totems" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/toyota-display.jpg",
-    alt: "Display publicitario para Toyota concesionaria",
+    titulo: "Trofeos Corporativos",
+    cliente: "Corporativo",
+    categoria: "acrilicos" as Categoria,
+    imagen: "/images/portfolio-trofeos-corporativos.png",
+    alt: "Trofeos corporativos personalizados en acrílico",
   },
   {
     id: 5,
-    titulo: "Letrero LED Tambo+",
-    cliente: "Tambo+",
-    categoria: "luminosos" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/tambo-led.jpg",
-    alt: "Letrero luminoso LED para tienda Tambo+",
+    titulo: "Arco Plaza",
+    cliente: "Plaza",
+    categoria: "totems" as Categoria,
+    imagen: "/images/portfolio-arco-plaza.png",
+    alt: "Arco decorativo corporativo para centro comercial",
   },
   {
     id: 6,
-    titulo: "Gigantografía San Fernando",
-    cliente: "San Fernando",
+    titulo: "Instalación MAGIA.pe",
+    cliente: "MAGIA",
+    categoria: "totems" as Categoria,
+    imagen: "/images/portfolio-rebranding-magia-instalacion.png",
+    alt: "Instalación de señalética corporativa para MAGIA.pe",
+  },
+  {
+    id: 7,
+    titulo: "Roll Screen La Patrona",
+    cliente: "La Patrona",
     categoria: "impresion" as Categoria,
-    imagen: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/sanfernando-banner.jpg",
-    alt: "Impresión en gran formato para campaña San Fernando",
+    imagen: "/images/portfolio-roll-patrona.png",
+    alt: "Roll screen publicitario para La Patrona",
+  },
+  {
+    id: 8,
+    titulo: "Backing DSM",
+    cliente: "dsm-firmenich",
+    categoria: "impresion" as Categoria,
+    imagen: "/images/portfolio-backing-dsm.png",
+    alt: "Backing de impresión gran formato para DSM Firmenich",
+  },
+  {
+    id: 9,
+    titulo: "Trofeo MAPFRE",
+    cliente: "MAPFRE",
+    categoria: "acrilicos" as Categoria,
+    imagen: "/images/portfolio-trofeo-mapfre.png",
+    alt: "Trofeo corporativo en acrílico para MAPFRE",
   },
 ];
 
@@ -95,14 +121,12 @@ export function Portafolio() {
           >
             Proyectos realizados
           </motion.span>
-          <motion.h2
-            {...FADE_UP}
-            transition={{ ...FADE_UP.transition, delay: 0.1 }}
+          <AnimatedH2
             id="portafolio-heading"
             className="font-heading font-extrabold text-[#024674] text-3xl md:text-4xl lg:text-5xl leading-tight mb-4"
           >
             Nuestros trabajos
-          </motion.h2>
+          </AnimatedH2>
           <motion.p
             {...FADE_UP}
             transition={{ ...FADE_UP.transition, delay: 0.2 }}
@@ -161,15 +185,14 @@ export function Portafolio() {
                 tabIndex={0}
                 aria-label={`${item.titulo} — cliente: ${item.cliente}`}
               >
-                {/* Placeholder */}
-                <div className="absolute inset-0 placeholder-img flex items-center justify-center">
-                  <div className="text-center px-4">
-                    <div className="text-[#024674]/20 font-heading font-bold text-sm mb-1">
-                      {item.titulo}
-                    </div>
-                    <div className="text-[#024674]/15 font-body text-xs">{item.cliente}</div>
-                  </div>
-                </div>
+                {/* Real image */}
+                <Image
+                  src={item.imagen}
+                  alt={item.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
 
                 {/* Hover overlay — spotlight style */}
                 <motion.div
@@ -192,13 +215,7 @@ export function Portafolio() {
                   </motion.div>
                 </motion.div>
 
-                {/* Scale image on hover */}
-                <motion.div
-                  className="absolute inset-0 -z-10"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] }}
-                  aria-hidden="true"
-                />
+                {/* Scale image on hover handled by group-hover on Image wrapper */}
               </motion.div>
             ))}
           </motion.div>

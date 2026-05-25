@@ -45,11 +45,16 @@ pnpm typecheck # tsc --noEmit
 1. Page load stagger: Hero headline (HEADLINE_WORDS, delay 0.2+0.1*i)
 2. Scroll reveal: todas las secciones con whileInView fadeInUp
 3. Marquee infinito: Clientes.tsx animate x -50%
-4. Hover micro: cards servicios (scale image 1.05 + overlay fade)
+4. Hover micro: Servicios tabs (x shift spring), cards portafolio (overlay fade)
 5. Hover underline nav: scaleX 0→1 (Header.tsx)
 6. Hover CTA spring: scale+shadow
 7. Counter animation: CountUp en Hero stats bar
-8. AnimatePresence: FAQ accordion + filtros portafolio
+8. AnimatePresence: FAQ accordion + filtros portafolio + Servicios tab switch
+9. **Ken Burns slideshow**: Hero.tsx — 5 slides con zoom/pan lento + crossfade 1.5s
+10. **Parallax scroll**: Hero content y bg tienen y transforms distintos vía useScroll+useTransform
+11. **Magnetic CTA**: MagneticCTA component en Hero — sigue el cursor con spring (stiffness 350)
+12. **Char-by-char text reveal**: AnimatedH2 component — blur+y fadeIn por palabra, aplicado en 6 secciones
+13. **layoutId activeBar**: barra indicadora de tab activo en Servicios.tsx (spring transition)
 
 ## modern-cards estilos usados
 1. Elevated — Taller.tsx (shadow-[0_4px_24px_rgba(2,70,116,0.08)])
@@ -68,16 +73,23 @@ pnpm typecheck # tsc --noEmit
 - #faq (FAQ)
 - #contacto (Contacto)
 
-## Assets pendientes del cliente
-Los siguientes assets son placeholders y deben ser reemplazados cuando el cliente entregue material:
-- /public/images/acrilica-logo.svg — DISPONIBLE (del V1)
-- /public/images/nosotros-taller-1.jpg → cliente debe entregar foto del taller
-- /public/images/nosotros-taller-2.jpg → ídem
-- /public/images/nosotros-taller-3.jpg → ídem
-- /public/images/servicio-*.jpg → fotos de cada servicio (8 fotos)
-- /public/images/og-image.jpg → diseño OG para redes (1200x630)
-- Logos clientes: Toyota, Grupo EFE, MAGIA, Fundación Peruana de Cáncer, San Fernando, Papa John's, MAPFRE, dsm-firmenich, New Balance, Financiera Efectiva, La Patrona, Fondo Mivivienda
-  - Disponibles en V1: toyota-logo.svg, tambo-logo.svg, grupo-centenario-logo.svg, akipa-logo.svg, faber-castell-logo.svg
+## Assets descargados (reales)
+- /public/images/acrilica-logo.svg — logo cliente (V1)
+- /public/images/nosotros-taller.png — foto taller 1.5MB (V1 GitHub)
+- /public/images/portfolio-totem.png — tótem MAGIA (Lovable R2)
+- /public/images/portfolio-rebranding-magia.png — letrero MAGIA (Lovable R2)
+- /public/images/portfolio-counter-papajohns.png — counter Papa John's (Lovable R2)
+- /public/images/portfolio-trofeos-corporativos.png — trofeos corp (Lovable R2)
+- /public/images/portfolio-arco-plaza.png — arco plaza (Lovable R2)
+- /public/images/portfolio-rebranding-magia-instalacion.png — instalación MAGIA.pe (Lovable R2)
+- /public/images/portfolio-roll-patrona.png — roll La Patrona (Lovable R2)
+- /public/images/portfolio-backing-dsm.png — backing DSM (Lovable R2)
+- /public/images/portfolio-trofeo-mapfre.png — trofeo MAPFRE (Lovable R2)
+- toyota-logo.svg, tambo-logo.svg, akipa-logo.svg, faber-castell-logo.svg, grupo-centenario-logo.svg (V1 GitHub)
+
+## Assets pendientes
+- /public/images/og-image.jpg → diseño OG para redes (1200x630) — pendiente
+- Logos: Grupo EFE, MAGIA, Fundación Peruana Cáncer, San Fernando, Papa John's, MAPFRE, dsm-firmenich, New Balance, Financiera Efectiva, La Patrona, Fondo Mivivienda — mostrar como texto en marquee hasta recibir
 
 ## Gotchas (anti-patterns a evitar)
 - NO usar npm install — SIEMPRE pnpm

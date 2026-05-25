@@ -23,7 +23,7 @@ export const SERVICIOS: Servicio[] = [
       "Divisores y paneles decorativos",
       "Acrílico de colores, transparente y espejado",
     ],
-    imagen: "/images/servicio-acrilicos.jpg",
+    imagen: "/images/portfolio-trofeos-corporativos.png",
     imagenAlt: "Trabajos en acrílico — letras y displays fabricados por Acrílica del Perú",
     waMessage:
       "Hola, me interesa cotizar trabajos en acrílico. ¿Podrían darme más información?",
@@ -42,7 +42,7 @@ export const SERVICIOS: Servicio[] = [
       "Porta-precios y señalética interna",
       "Materiales: acrílico, MDF, PVC, metal",
     ],
-    imagen: "/images/servicio-totems.jpg",
+    imagen: "/images/portfolio-totem.png",
     imagenAlt: "Tótems y displays POP — fabricación a medida para marcas corporativas",
     waMessage:
       "Hola, necesito cotizar tótems publicitarios o displays POP. ¿Me pueden ayudar?",
@@ -61,7 +61,7 @@ export const SERVICIOS: Servicio[] = [
       "Cenefas y colgadores de producto",
       "Kits de merchandising completos",
     ],
-    imagen: "/images/servicio-exhibidores.jpg",
+    imagen: "/images/portfolio-counter-papajohns.png",
     imagenAlt: "Exhibidores POP personalizados para retail y puntos de venta",
     waMessage:
       "Hola, me interesa cotizar exhibidores POP para mis productos. ¿Tienen disponibilidad?",
@@ -80,7 +80,7 @@ export const SERVICIOS: Servicio[] = [
       "Rótulos retroiluminados",
       "Instalación y mantenimiento incluido",
     ],
-    imagen: "/images/servicio-luminosos.jpg",
+    imagen: "/images/portfolio-rebranding-magia.png",
     imagenAlt: "Letreros luminosos LED — fachadas y señalética corporativa brillante",
     waMessage:
       "Hola, necesito cotizar letreros luminosos LED para nuestra fachada. ¿Me pueden asesorar?",
@@ -99,7 +99,7 @@ export const SERVICIOS: Servicio[] = [
       "Floor graphics y señalética de piso",
       "Impresión en tela y mesh",
     ],
-    imagen: "/images/servicio-gran-formato.jpg",
+    imagen: "/images/portfolio-backing-dsm.png",
     imagenAlt: "Impresión en gran formato — banners, vallas y gigantografías de alta resolución",
     waMessage:
       "Hola, necesito cotizar impresión en gran formato. ¿Qué materiales y tamaños manejan?",
@@ -118,7 +118,7 @@ export const SERVICIOS: Servicio[] = [
       "Kits de bienvenida para colaboradores",
       "Artículos para eventos y lanzamientos",
     ],
-    imagen: "/images/servicio-merchandising.jpg",
+    imagen: "/images/portfolio-roll-patrona.png",
     imagenAlt: "Merchandising corporativo personalizado — artículos de marca en cantidad",
     waMessage:
       "Hola, me interesa cotizar merchandising corporativo. ¿Cuáles son sus cantidades mínimas?",
@@ -137,7 +137,7 @@ export const SERVICIOS: Servicio[] = [
       "Cabinas fotográficas y selfie-spots",
       "Instalación y desmontaje incluido",
     ],
-    imagen: "/images/servicio-modulos.jpg",
+    imagen: "/images/portfolio-arco-plaza.png",
     imagenAlt: "Módulos y estructuras para retail, ferias y eventos corporativos",
     waMessage:
       "Hola, necesito cotizar módulos o estructuras para nuestro punto de venta. ¿Podrían asesorarme?",
@@ -156,7 +156,7 @@ export const SERVICIOS: Servicio[] = [
       "Esculturas de marca en resina o acrílico",
       "Recordatorios y souvenirs de empresa",
     ],
-    imagen: "/images/servicio-trofeos.jpg",
+    imagen: "/images/portfolio-trofeo-mapfre.png",
     imagenAlt: "Trofeos y reconocimientos corporativos — grabado láser de precisión",
     waMessage:
       "Hola, me interesa cotizar trofeos o placas de reconocimiento corporativo. ¿Qué opciones tienen?",

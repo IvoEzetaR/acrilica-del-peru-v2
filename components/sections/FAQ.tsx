@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { FAQ_ITEMS } from "@/lib/data/servicios";
+import { AnimatedH2 } from "@/components/ui/animated-h2";
 
 const FADE_UP = {
   initial: { opacity: 0, y: 32 },
@@ -34,14 +35,12 @@ export function FAQ() {
           >
             Preguntas frecuentes
           </motion.span>
-          <motion.h2
-            {...FADE_UP}
-            transition={{ ...FADE_UP.transition, delay: 0.1 }}
+          <AnimatedH2
             id="faq-heading"
             className="font-heading font-extrabold text-[#024674] text-3xl md:text-4xl lg:text-5xl leading-tight mb-4"
           >
             Resolvemos tus dudas
-          </motion.h2>
+          </AnimatedH2>
           <motion.p
             {...FADE_UP}
             transition={{ ...FADE_UP.transition, delay: 0.2 }}

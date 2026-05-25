@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ArrowRight, ChevronRight } from "lucide-react";
 import { SERVICIOS } from "@/lib/data/servicios";
 import { buildWaLink } from "@/lib/wa";
 
@@ -12,116 +14,36 @@ const FADE_UP = {
   transition: { duration: 0.55, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] },
 };
 
-const CARD_STAGGER = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-};
-
-function ServicioCard({ servicio, index }: { servicio: typeof SERVICIOS[0]; index: number }) {
+// Pattern: char-by-char text reveal for section headings (H2)
+function AnimatedH2({ children, id, className }: { children: string; id?: string; className?: string }) {
+  const words = children.split(" ");
   return (
-    <motion.article
-      {...CARD_STAGGER}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] }}
-      className="group relative bg-white border border-[#E5EAF0] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
-      role="article"
-      aria-label={`Servicio: ${servicio.nombre}`}
-    >
-      {/* Image area — elevated card style (modern-cards: elevated) */}
-      <div className="relative h-48 sm:h-56 overflow-hidden bg-[#F5F7FA] placeholder-img">
-        {/* Placeholder pattern — real photos replace this */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#024674]/20 font-heading font-semibold text-sm text-center px-4">
-            {servicio.imagenAlt}
-          </span>
-        </div>
-
-        {/* Hover overlay */}
-        <motion.div
-          className="absolute inset-0 bg-[#024674]/60 flex items-end p-4"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.25 }}
-        >
-          <span className="text-white font-heading font-semibold text-sm">
-            Ver detalles del servicio
-          </span>
-        </motion.div>
-
-        {/* Category badge */}
-        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
-          <span className="text-[10px] font-heading font-semibold text-[#024674] uppercase tracking-wide">
-            {servicio.categoria === "materiales" ? "Materiales" :
-             servicio.categoria === "luminosos" ? "Luminosos" :
-             servicio.categoria === "impresion" ? "Impresión" : "Especiales"}
-          </span>
-        </div>
-
-        {/* Placeholder background — scales on hover too */}
-        <motion.div
-          className="absolute inset-0 placeholder-img bg-[#F5F7FA]"
-          whileHover={{ scale: 1.03 }}
-          transition={{ duration: 0.4 }}
+    <h2 id={id} className={className} aria-label={children}>
+      {words.map((word, wi) => (
+        <motion.span
+          key={wi}
+          className="inline-block mr-[0.25em] last:mr-0"
+          initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{
+            duration: 0.5,
+            delay: wi * 0.07,
+            ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number],
+          }}
           aria-hidden="true"
-          style={{ zIndex: -1 }}
-        />
-      </div>
-
-      {/* Card body */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-heading font-bold text-[#024674] text-xl mb-2 group-hover:text-[#035a93] transition-colors">
-          {servicio.nombre}
-        </h3>
-        <p className="text-[#5E6B78] font-body text-sm leading-relaxed mb-4 flex-1">
-          {servicio.descripcion}
-        </p>
-
-        {/* Bullets */}
-        <ul className="space-y-1.5 mb-5" aria-label={`Detalles de ${servicio.nombre}`}>
-          {servicio.bullets.slice(0, 4).map((bullet) => (
-            <li key={bullet} className="flex items-start gap-2 text-xs text-[#5E6B78] font-body">
-              <Check size={13} className="text-[#25B15F] mt-0.5 shrink-0" aria-hidden="true" />
-              <span>{bullet}</span>
-            </li>
-          ))}
-          {servicio.bullets.length > 4 && (
-            <li className="text-[10px] text-[#024674]/50 font-body pl-5">
-              +{servicio.bullets.length - 4} más...
-            </li>
-          )}
-        </ul>
-
-        {/* CTA */}
-        <motion.a
-          href={buildWaLink({
-            servicio: servicio.nombre,
-            mensaje: servicio.waMessage,
-          })}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-[#024674] font-heading font-semibold text-sm border-b border-[#024674]/30 pb-0.5 hover:border-[#024674] transition-colors w-fit"
-          whileHover={{ gap: "10px" }}
-          transition={{ duration: 0.15 }}
-          aria-label={`Cotizar ${servicio.nombre} por WhatsApp`}
         >
-          Cotizar este servicio
-          <ArrowRight size={14} aria-hidden="true" />
-        </motion.a>
-      </div>
-
-      {/* Bottom accent bar on hover */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#024674] origin-left"
-        initial={{ scaleX: 0 }}
-        whileHover={{ scaleX: 1 }}
-        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] }}
-        aria-hidden="true"
-      />
-    </motion.article>
+          {word}
+        </motion.span>
+      ))}
+    </h2>
   );
 }
 
 export function Servicios() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = SERVICIOS[activeIndex];
+
   return (
     <section
       id="servicios"
@@ -137,14 +59,12 @@ export function Servicios() {
           >
             Lo que fabricamos
           </motion.span>
-          <motion.h2
-            {...FADE_UP}
-            transition={{ ...FADE_UP.transition, delay: 0.1 }}
+          <AnimatedH2
             id="servicios-heading"
             className="font-heading font-extrabold text-[#024674] text-3xl md:text-4xl lg:text-5xl leading-tight mb-4"
           >
             Nuestros servicios
-          </motion.h2>
+          </AnimatedH2>
           <motion.p
             {...FADE_UP}
             transition={{ ...FADE_UP.transition, delay: 0.2 }}
@@ -155,16 +75,143 @@ export function Servicios() {
           </motion.p>
         </div>
 
-        {/* Grid 2 columns */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 md:gap-8"
-          role="list"
-          aria-label="Lista de servicios"
+        {/* Vertical tabs layout — list left + preview right */}
+        <motion.div
+          {...FADE_UP}
+          transition={{ ...FADE_UP.transition, delay: 0.15 }}
+          className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 lg:gap-8 items-start"
         >
-          {SERVICIOS.map((servicio, i) => (
-            <ServicioCard key={servicio.id} servicio={servicio} index={i} />
-          ))}
-        </div>
+          {/* Left — service list */}
+          <nav aria-label="Servicios disponibles" className="flex flex-col gap-1.5">
+            {SERVICIOS.map((servicio, i) => (
+              <motion.button
+                key={servicio.id}
+                onClick={() => setActiveIndex(i)}
+                className={`group relative w-full text-left px-5 py-4 rounded-xl transition-all duration-200 flex items-center justify-between gap-3 ${
+                  i === activeIndex
+                    ? "bg-[#024674] text-white shadow-lg shadow-[#024674]/20"
+                    : "bg-white border border-[#E5EAF0] text-[#5E6B78] hover:border-[#024674]/30 hover:text-[#024674]"
+                }`}
+                whileHover={i !== activeIndex ? { x: 4 } : {}}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                aria-pressed={i === activeIndex}
+                aria-label={`Ver servicio: ${servicio.nombre}`}
+              >
+                <div className="flex-1 min-w-0">
+                  <div
+                    className={`font-heading font-semibold text-sm leading-snug mb-0.5 ${
+                      i === activeIndex ? "text-white" : "text-[#024674]"
+                    }`}
+                  >
+                    {servicio.nombre}
+                  </div>
+                  <div
+                    className={`font-body text-xs truncate ${
+                      i === activeIndex ? "text-white/70" : "text-[#5E6B78]"
+                    }`}
+                  >
+                    {servicio.bullets[0]}
+                  </div>
+                </div>
+                <ChevronRight
+                  size={16}
+                  className={`shrink-0 transition-transform duration-200 ${
+                    i === activeIndex ? "text-white rotate-90" : "text-[#024674]/40 group-hover:translate-x-0.5"
+                  }`}
+                  aria-hidden="true"
+                />
+
+                {/* Active left bar */}
+                {i === activeIndex && (
+                  <motion.div
+                    layoutId="activeBar"
+                    className="absolute left-0 top-3 bottom-3 w-1 bg-white/50 rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    aria-hidden="true"
+                  />
+                )}
+              </motion.button>
+            ))}
+          </nav>
+
+          {/* Right — preview panel */}
+          <div className="sticky top-24" aria-live="polite" aria-atomic="true">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.id}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -16 }}
+                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number] }}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#E5EAF0]"
+              >
+                {/* Image — gradient-border card style */}
+                <div className="relative h-64 sm:h-80 overflow-hidden bg-[#F5F7FA] group">
+                  <Image
+                    src={active.imagen}
+                    alt={active.imagenAlt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                  />
+                  {/* Category badge */}
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+                    <span className="text-[10px] font-heading font-semibold text-[#024674] uppercase tracking-wide">
+                      {active.categoria === "materiales" ? "Materiales" :
+                       active.categoria === "luminosos" ? "Luminosos" :
+                       active.categoria === "impresion" ? "Impresión" : "Especiales"}
+                    </span>
+                  </div>
+                  {/* Subtle gradient bottom overlay */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+                    style={{ background: "linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 100%)" }}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="p-6 md:p-8">
+                  <h3 className="font-heading font-bold text-[#024674] text-2xl mb-3">
+                    {active.nombre}
+                  </h3>
+                  <p className="text-[#5E6B78] font-body text-base leading-relaxed mb-6">
+                    {active.descripcion}
+                  </p>
+
+                  {/* Bullets — two columns */}
+                  <ul
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mb-7"
+                    aria-label={`Detalles de ${active.nombre}`}
+                  >
+                    {active.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2 text-sm text-[#5E6B78] font-body">
+                        <Check size={14} className="text-[#25B15F] mt-0.5 shrink-0" aria-hidden="true" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA — magnetic spring hover */}
+                  <motion.a
+                    href={buildWaLink({ servicio: active.nombre, mensaje: active.waMessage })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#024674] text-white px-6 py-3.5 rounded-xl text-sm font-bold font-heading hover:bg-[#035a93] transition-colors shadow-md shadow-[#024674]/15"
+                    whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(2,70,116,0.25)" }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    aria-label={`Cotizar ${active.nombre} por WhatsApp`}
+                  >
+                    Cotizar este servicio
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </motion.a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div
