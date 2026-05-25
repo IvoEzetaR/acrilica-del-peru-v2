@@ -1,0 +1,23 @@
+packages:
+  - "."
+
+# IDE Agency supply-chain security rules (2026-05-12)
+# See .claude/shared/pnpm-supply-chain-security.md for full rationale
+
+onlyBuiltDependencies:
+  - "@next/swc-darwin-arm64"
+  - "@next/swc-darwin-x64"
+  - "@next/swc-linux-arm64-gnu"
+  - "@next/swc-linux-arm64-musl"
+  - "@next/swc-linux-x64-gnu"
+  - "@next/swc-linux-x64-musl"
+  - "@next/swc-win32-arm64-msvc"
+  - "@next/swc-win32-x64-msvc"
+  - "sharp"
+
+minimumReleaseAge: "1440"
+ignoreDepScripts: false
+blockExoticSubdeps: false
+allowBuilds:
+  sharp: true
+  unrs-resolver: true

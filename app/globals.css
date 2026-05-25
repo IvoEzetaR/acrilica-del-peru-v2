@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-brand-blue: #024674;
+  --color-brand-blue-light: #035a93;
+  --color-brand-blue-dark: #013358;
+  --color-brand-green: #25B15F;
+  --color-brand-green-dark: #1d8f4c;
+
+  /* Neutrals */
+  --color-surface: #F5F7FA;
+  --color-text-muted: #5E6B78;
+  --color-border: #E5EAF0;
+  --color-white: #FFFFFF;
+
+  /* Typography */
+  --font-heading: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-body: var(--font-poppins), "Poppins", sans-serif;
+
+  /* Spacing extensions */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+
+  /* Animations */
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 30s linear infinite;
+  --animate-fade-in-up: fadeInUp 0.5s ease forwards;
+  --animate-count-up: countUp 0.8s ease forwards;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-white);
+  color: #1a2535;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Heading utility */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-brand-blue);
+  color: white;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Placeholder image pattern */
+.placeholder-img {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(2, 70, 116, 0.06),
+    rgba(2, 70, 116, 0.06) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
