@@ -73,25 +73,17 @@ export function Header() {
             <a
               href="#inicio"
               onClick={(e) => { e.preventDefault(); handleNavClick("#inicio"); }}
-              className="flex items-center gap-2 shrink-0"
+              className="flex items-center shrink-0"
               aria-label="Acrílica del Perú — inicio"
             >
-              <div className="relative w-8 h-8">
+              <div className="relative w-12 h-12 md:w-14 md:h-14">
                 <Image
-                  src="/images/acrilica-logo.svg"
+                  src="/images/acrilica-logo.png"
                   alt="Acrílica del Perú logo"
                   fill
                   className="object-contain"
                   priority
                 />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-heading font-800 text-[#024674] text-sm tracking-tight">
-                  Acrílica del Perú
-                </span>
-                <span className="text-[10px] text-[#5E6B78] font-body tracking-wide">
-                  Fabricación Visual
-                </span>
               </div>
             </a>
 

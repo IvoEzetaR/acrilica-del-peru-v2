@@ -2,19 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { WA_HERO } from "@/lib/wa";
 import { STATS } from "@/lib/data/servicios";
 
-// Hero slideshow images — real Lovable portfolio photos
-const HERO_SLIDES = [
-  { src: "/images/portfolio-arco-plaza.png", alt: "Arco corporativo fabricado por Acrílica del Perú" },
-  { src: "/images/portfolio-totem.png", alt: "Tótem publicitario MAGIA — Acrílica del Perú" },
-  { src: "/images/portfolio-rebranding-magia.png", alt: "Letrero corporativo de alta calidad" },
-  { src: "/images/portfolio-backing-dsm.png", alt: "Impresión gran formato — backing DSM Firmenich" },
-  { src: "/images/portfolio-rebranding-magia-instalacion.png", alt: "Instalación de señalética corporativa" },
-];
+// Hero background — single image (Magia.pe facade, real client work)
+const HERO_IMAGE = {
+  src: "/images/portfolio-rebranding-magia.png",
+  alt: "Fachada Magia.pe — letrero corporativo fabricado por Acrílica del Perú",
+};
 
 const HEADLINE_WORDS = ["Fabricamos", "lo que tu", "marca necesita", "para brillar."];
 
@@ -31,7 +28,7 @@ function CharReveal({ text, delay = 0 }: { text: string; delay?: number }) {
           transition={{ duration: 0.25, delay: delay + i * 0.03, ease: "easeOut" }}
           aria-hidden="true"
         >
-          {char === " " ? " " : char}
+          {char === " " ? " " : char}
         </motion.span>
       ))}
     </span>
@@ -75,18 +72,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
   );
 }
 
-// Pattern: Ken Burns — each slide gets a slow zoom+pan
-const KEN_BURNS_VARIANTS = [
-  { initial: { scale: 1, x: 0, y: 0 }, animate: { scale: 1.08, x: "-2%", y: "-1%" } },
-  { initial: { scale: 1, x: 0, y: 0 }, animate: { scale: 1.07, x: "2%", y: "1%" } },
-  { initial: { scale: 1.05, x: "1%", y: 0 }, animate: { scale: 1, x: "-1%", y: "-1%" } },
-  { initial: { scale: 1, x: "-2%", y: "1%" }, animate: { scale: 1.08, x: "1%", y: "-1%" } },
-  { initial: { scale: 1.06, x: 0, y: "-1%" }, animate: { scale: 1, x: "2%", y: "1%" } },
-];
-
 export function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [prevSlide, setPrevSlide] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
 
   // Pattern: parallax scroll — hero content moves slower than scroll
@@ -94,17 +80,6 @@ export function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  // Auto-advance slideshow every 5s
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => {
-        setPrevSlide(prev);
-        return (prev + 1) % HERO_SLIDES.length;
-      });
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleScrollToWorks = () => {
     const el = document.querySelector("#portafolio");
@@ -129,67 +104,26 @@ export function Hero() {
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
       aria-label="Hero — Acrílica del Perú"
     >
-      {/* ── Ken Burns slideshow background ── */}
+      {/* ── Background — single Magia.pe facade with slow Ken Burns ── */}
       <motion.div
         className="absolute inset-0 z-0"
         style={{ y: bgY }}
       >
-        {/* Previous slide — fades out */}
-        <AnimatePresence initial={false}>
-          {prevSlide !== null && (
-            <motion.div
-              key={`prev-${prevSlide}`}
-              className="absolute inset-0"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            >
-              <motion.div
-                className="absolute inset-[-5%] w-[110%] h-[110%]"
-                initial={KEN_BURNS_VARIANTS[prevSlide % KEN_BURNS_VARIANTS.length].initial}
-                animate={KEN_BURNS_VARIANTS[prevSlide % KEN_BURNS_VARIANTS.length].animate}
-                transition={{ duration: 5, ease: "linear" }}
-              >
-                <Image
-                  src={HERO_SLIDES[prevSlide].src}
-                  alt={HERO_SLIDES[prevSlide].alt}
-                  fill
-                  className="object-cover"
-                  sizes="100vw"
-                  priority={prevSlide === 0}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Current slide — fades in with Ken Burns zoom */}
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={`slide-${currentSlide}`}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          >
-            <motion.div
-              className="absolute inset-[-5%] w-[110%] h-[110%]"
-              initial={KEN_BURNS_VARIANTS[currentSlide % KEN_BURNS_VARIANTS.length].initial}
-              animate={KEN_BURNS_VARIANTS[currentSlide % KEN_BURNS_VARIANTS.length].animate}
-              transition={{ duration: 5500 / 1000, ease: "linear" }}
-            >
-              <Image
-                src={HERO_SLIDES[currentSlide].src}
-                alt={HERO_SLIDES[currentSlide].alt}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                priority={currentSlide === 0}
-              />
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="absolute inset-[-5%] w-[110%] h-[110%]"
+          initial={{ scale: 1, x: 0, y: 0 }}
+          animate={{ scale: 1.08, x: "-2%", y: "-1%" }}
+          transition={{ duration: 18, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+        >
+          <Image
+            src={HERO_IMAGE.src}
+            alt={HERO_IMAGE.alt}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
 
         {/* Overlay — #024674 — client pidió menos saturación azul */}
         <motion.div
@@ -216,29 +150,6 @@ export function Hero() {
           aria-hidden="true"
         />
       </motion.div>
-
-      {/* Slide indicators */}
-      <div
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2"
-        role="tablist"
-        aria-label="Imágenes del slideshow"
-      >
-        {HERO_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            role="tab"
-            aria-selected={i === currentSlide}
-            aria-label={`Imagen ${i + 1}`}
-            onClick={() => {
-              setPrevSlide(currentSlide);
-              setCurrentSlide(i);
-            }}
-            className={`h-1.5 rounded-full transition-all duration-500 ${
-              i === currentSlide ? "bg-white w-8" : "bg-white/40 w-3 hover:bg-white/70"
-            }`}
-          />
-        ))}
-      </div>
 
       {/* ── Content — parallax moves up on scroll ── */}
       <motion.div
